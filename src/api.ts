@@ -1,3 +1,5 @@
+import { Cloudinary } from "@cloudinary/url-gen";
+import { cloudName } from "./config";
 import { Image } from "./types";
 
 export async function getImages(): Promise<Image[]> {
@@ -11,3 +13,4 @@ export async function getImage(id: string): Promise<Image> {
   const data = await res.json();
   return data;
 }
+export const cld = new Cloudinary({ cloud: { cloudName } });
