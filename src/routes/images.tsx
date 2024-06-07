@@ -24,14 +24,17 @@ async function getImages(): Promise<Image[]> {
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function loader() {
-  const images = await getImages();
-  return { images };
+  return { images: await getImages() };
 }
 
-export default function Images() {
+const useImagesData = () => {
   const data = useLoaderData();
-
   const { images } = DataSchema.parse(data);
+  return images;
+};
+
+export default function Images() {
+  const images = useImagesData();
 
   return (
     <div id="images">
