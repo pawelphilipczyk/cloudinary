@@ -10,6 +10,12 @@
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
+.logo.cloudinary {
+  height: 5em;
+}
+.logo.cloudinary:hover {
+  filter: drop-shadow(0 0 2em #3847BF);
+}
 
 @keyframes logo-spin {
   from {
@@ -21,7 +27,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
+  .spin {
     animation: logo-spin infinite 20s linear;
   }
 }
