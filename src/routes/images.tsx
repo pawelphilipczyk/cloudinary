@@ -1,39 +1,22 @@
-import { Link, useLoaderData } from "react-router-dom";
-import { z } from "zod";
+import { Link, useRouteLoaderData } from "react-router-dom";
+import { getImages } from "../api";
+import { DataSchema } from "../types";
 import "./images.css";
 
-const ImageSchema = z.object({
-  albumId: z.number(),
-  id: z.number(),
-  title: z.string(),
-  url: z.string().url(),
-  thumbnailUrl: z.string().url(),
-});
 
-const DataSchema = z.object({
-  images: z.array(ImageSchema),
-});
-
-type Image = z.infer<typeof ImageSchema>;
-
-async function getImages(): Promise<Image[]> {
-  const res = await fetch("https://jsonplaceholder.typicode.com/photos");
-  const data = await res.json();
-  return data;
-}
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function loader() {
   return { images: await getImages() };
 }
 
-const useImagesData = () => {
-  const data = useLoaderData();
+export const useImagesData = (count = 10) => {
+  const data = useRouteLoaderData('images');
   const { images } = DataSchema.parse(data);
-  return images;
+  return images.slice(0, count);
 };
 
-export default function Images() {
+export default function Images({ children }: React.PropsWithChildren) {
   const images = useImagesData();
 
   return (
@@ -56,7 +39,7 @@ export default function Images() {
         </div>
         <nav>
           <ul>
-            {images.slice(0, 10).map((image) => (
+            {images.map((image) => (
               <li key={image.id}>
                 <Link to={`/images/${image.id}`} key={image.id}>
                   {image.title}
@@ -67,15 +50,7 @@ export default function Images() {
         </nav>
       </div>
       <div id="detail">
-        <ul>
-          {images.slice(0, 10).map((image) => (
-            <li className="card" key={image.id}>
-              <Link to={`/images/${image.id}`} key={image.id}>
-                <img src={image.thumbnailUrl} />
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {children}
       </div>
     </div>
   );

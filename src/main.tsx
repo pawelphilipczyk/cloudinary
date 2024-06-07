@@ -1,11 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router-dom";
 
-import Root from "./routes/root.js";
 import ErrorPage from "./error-page.js";
 import "./index.css";
-import Images, { loader as rootLoader } from "./routes/images.js";
+import ImageDetails, { loader as imageLoader } from "./routes/images-details.js";
+import ImagesIndex from "./routes/images-index.js";
+import Images, { loader as imagesLoader } from "./routes/images.js";
+import Root from "./routes/root.js";
 
 const router = createBrowserRouter(
   [
@@ -13,12 +15,29 @@ const router = createBrowserRouter(
       path: "/",
       element: <Root children={<Outlet />} />,
       errorElement: <ErrorPage />,
+
       children: [
         {
-          errorElement: <ErrorPage />,
           index: true,
-          loader: rootLoader,
-          element: <Images />,
+          element: <Navigate to="images" />,
+        },
+        {
+          errorElement: <ErrorPage />,
+          path: "images",
+          id: "images",
+          loader: imagesLoader,
+          element: <Images children={<Outlet />} />,
+          children: [
+            {
+              index: true,
+              element: <ImagesIndex />,
+            },
+            {
+              path: ":imageId",
+              loader: imageLoader,
+              element: <ImageDetails />,
+            },
+          ],
         },
       ],
     },
