@@ -23,7 +23,7 @@ const router = createBrowserRouter(
       ],
     },
   ],
-  { basename: "/clodinary" }
+  { basename: "/cloudinary" }
 );
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
