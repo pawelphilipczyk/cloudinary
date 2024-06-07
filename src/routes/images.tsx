@@ -2,6 +2,7 @@ import {
   Form,
   Link,
   LoaderFunctionArgs,
+  useNavigate,
   useRouteLoaderData,
 } from "react-router-dom";
 import { getImages } from "../api";
@@ -22,8 +23,9 @@ export const useImagesData = (count = 10) => {
 };
 
 export default function Images({ children }: React.PropsWithChildren) {
-  const { images, q = '' } = useImagesData();
+  const { images, q = "" } = useImagesData();
   const inputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (inputRef.current) inputRef.current.value = q;
@@ -43,6 +45,9 @@ export default function Images({ children }: React.PropsWithChildren) {
               name="q"
               defaultValue={q}
               ref={inputRef}
+              onChange={(e) => {
+                if (e.target.value === "" && inputRef.current) navigate("");
+              }}
             />
             <button type="submit">🔍</button>
             <div id="search-spinner" aria-hidden hidden={true} />
