@@ -1,6 +1,7 @@
 import { Link, LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 import { getImage } from "../api";
 import { ImageSchema } from "../types";
+import "./images-details.css";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   return params.imageId ? await getImage(params.imageId) : null;
