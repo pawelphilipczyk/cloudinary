@@ -2,11 +2,12 @@ import {
   Form,
   Link,
   LoaderFunctionArgs,
-  useRouteLoaderData
+  useRouteLoaderData,
 } from "react-router-dom";
 import { getImages } from "../api";
 import { DataSchema } from "../types";
 import "./images.css";
+import { useEffect, useRef } from "react";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -21,7 +22,12 @@ export const useImagesData = (count = 10) => {
 };
 
 export default function Images({ children }: React.PropsWithChildren) {
-  const { images, q } = useImagesData();
+  const { images, q = '' } = useImagesData();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) inputRef.current.value = q;
+  }, [q]);
 
   return (
     <div id="images">
@@ -36,6 +42,7 @@ export default function Images({ children }: React.PropsWithChildren) {
               type="search"
               name="q"
               defaultValue={q}
+              ref={inputRef}
             />
             <button type="submit">🔍</button>
             <div id="search-spinner" aria-hidden hidden={true} />
