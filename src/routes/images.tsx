@@ -1,14 +1,12 @@
 import {
-  Form,
   Link,
   LoaderFunctionArgs,
-  useNavigate,
-  useRouteLoaderData,
+  useRouteLoaderData
 } from "react-router-dom";
 import { getImages } from "../api";
 import { DataSchema } from "../types";
+import { SearchForm } from "../components/SearchForm";
 import "./images.css";
-import { useEffect, useRef } from "react";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -24,36 +22,12 @@ export const useImagesData = (count = 10) => {
 
 export default function Images({ children }: React.PropsWithChildren) {
   const { images, q = "" } = useImagesData();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (inputRef.current) inputRef.current.value = q;
-  }, [q]);
 
   return (
     <div id="images">
       <div id="sidebar">
         <h1>Cloudinary</h1>
-        <div>
-          <Form id="search-form" role="search" method="get">
-            <input
-              id="q"
-              aria-label="Search images"
-              placeholder="Search images"
-              type="search"
-              name="q"
-              defaultValue={q}
-              ref={inputRef}
-              onChange={(e) => {
-                if (e.target.value === "" && inputRef.current) navigate("");
-              }}
-            />
-            <button type="submit">🔍</button>
-            <div id="search-spinner" aria-hidden hidden={true} />
-            <div className="sr-only" aria-live="polite"></div>
-          </Form>
-        </div>
+        <SearchForm q={q} />
         <nav>
           <ul>
             {images.map((image) => (
