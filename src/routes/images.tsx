@@ -37,7 +37,7 @@ export default function Images() {
       <div id="sidebar">
         <h1>Cloudinary</h1>
         <div>
-          <form id="search-form" role="search">
+          <form id="search-form" role="search" method="post">
             <input
               id="q"
               aria-label="Search images"
@@ -45,11 +45,9 @@ export default function Images() {
               type="search"
               name="q"
             />
+            <button type="submit">🔍</button>
             <div id="search-spinner" aria-hidden hidden={true} />
             <div className="sr-only" aria-live="polite"></div>
-          </form>
-          <form method="post">
-            <button type="submit">New</button>
           </form>
         </div>
         <nav>

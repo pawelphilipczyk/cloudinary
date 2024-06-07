@@ -11,6 +11,11 @@
   padding: 1em;
 }
 
+#search-form {
+  display: flex;
+  gap: 1em;
+}
+
 #detail {
   flex-grow: 1;
 }
@@ -22,7 +27,7 @@
 }
 .card {
   list-style: none;
-  padding: 2em;
+  padding: 1em;
   color: #888;
   border: 5px solid transparent;
 }
