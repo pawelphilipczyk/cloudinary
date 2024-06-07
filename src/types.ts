@@ -11,6 +11,7 @@ export const ImageSchema = z.object({
 
 export const DataSchema = z.object({
   images: z.array(ImageSchema),
+  q: z.string().optional(),
 });
 
 export type Image = z.infer<typeof ImageSchema>;

@@ -6,7 +6,7 @@ export function loader() {
 }
 
 const ImageIndex = () => {
-  const images = useImagesData();
+  const { images } = useImagesData();
   return (
     <ul>
       {images.map((image) => (
