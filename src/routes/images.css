@@ -1,0 +1,37 @@
+#images {
+  display: flex;
+  gap: 20px;
+  background: #202020;
+  width: 100%;
+}
+
+#sidebar {
+  width: 250px;
+  height: 100%;
+  padding: 1em;
+}
+
+#detail {
+  flex-grow: 1;
+}
+
+#detail ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+.card {
+  list-style: none;
+  padding: 2em;
+  color: #888;
+  border: 5px solid transparent;
+}
+
+.card img {
+  width: 100%;
+  border: 5px solid #202020;
+}
+
+.card img:hover {
+  border-color: #111111;
+}
