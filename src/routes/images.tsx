@@ -57,7 +57,7 @@ export default function Images() {
         <nav>
           <ul>
             {images.slice(0, 10).map((image) => (
-              <li>
+              <li key={image.id}>
                 <Link to={`/images/${image.id}`} key={image.id}>
                   {image.title}
                 </Link>
@@ -69,7 +69,7 @@ export default function Images() {
       <div id="detail">
         <ul>
           {images.slice(0, 10).map((image) => (
-            <li className="card">
+            <li className="card" key={image.id}>
               <Link to={`/images/${image.id}`} key={image.id}>
                 <img src={image.thumbnailUrl} />
               </Link>
