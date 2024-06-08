@@ -8,7 +8,6 @@ import { DataSchema } from "../types";
 import { SearchForm } from "../components/SearchForm";
 import "./images.css";
 
-// eslint-disable-next-line react-refresh/only-export-components
 export async function loader({ request }: LoaderFunctionArgs) {
   const q = new URL(request.url).searchParams.get("q") || undefined;
   return { images: await getImages(q), q };
