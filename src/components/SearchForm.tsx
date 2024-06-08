@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, ReactRouterForm, Input } from "./Form";
+import { Button, Form, Input } from "./Form";
 
 export const SearchForm = ({ q }: { q: string }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -11,7 +11,7 @@ export const SearchForm = ({ q }: { q: string }) => {
   }, [q]);
 
   return (
-    <ReactRouterForm id="search-form" role="search" method="get">
+    <Form id="search-form" role="search" method="get">
       <Input
         id="q"
         aria-label="Search images"
@@ -27,6 +27,6 @@ export const SearchForm = ({ q }: { q: string }) => {
       <Button type="submit">🔍</Button>
       <div id="search-spinner" aria-hidden hidden={true} />
       <div className="sr-only" aria-live="polite"></div>
-    </ReactRouterForm>
+    </Form>
   );
 };
