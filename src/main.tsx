@@ -8,6 +8,7 @@ import ImageDetails, { loader as imageLoader } from "./routes/images-details.js"
 import ImagesIndex from "./routes/images-index.js";
 import Images, { loader as imagesLoader } from "./routes/images.js";
 import Root from "./routes/root.js";
+import { basename } from "./config.js";
 
 const router = createBrowserRouter(
   [
@@ -42,7 +43,7 @@ const router = createBrowserRouter(
       ],
     },
   ],
-  { basename: "/cloudinary" }
+  { basename }
 );
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
