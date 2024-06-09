@@ -1,12 +1,32 @@
-import {
-  Link,
-  LoaderFunctionArgs,
-  useRouteLoaderData
-} from "react-router-dom";
+import { Link, LoaderFunctionArgs, useRouteLoaderData } from "react-router-dom";
+import styled from "styled-components";
+
 import { getImages } from "../api";
-import { DataSchema } from "../types";
 import { SearchForm } from "../components/SearchForm";
-import "./images.css";
+import { DataSchema } from "../types";
+
+const Main = styled.div`
+  display: flex;
+  gap: 20px;
+  background: #202020;
+  width: 100%;
+`;
+
+const NavLink = styled(Link)`
+  color: ${({ theme }) => theme.color.primary};
+  font-weight: 500;
+  text-decoration: inherit;
+
+  &:hover {
+    color: ${({ theme }) => theme.color.primaryAlt};
+  }
+`;
+
+const Sidebar = styled.div`
+  width: 250px;
+  height: 100%;
+  padding: 1em;
+`;
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const q = new URL(request.url).searchParams.get("q") || undefined;
@@ -23,23 +43,23 @@ export default function Images({ children }: React.PropsWithChildren) {
   const { images, q = "" } = useImagesData();
 
   return (
-    <div id="images">
-      <div id="sidebar">
+    <Main>
+      <Sidebar>
         <h1>Cloudinary</h1>
         <SearchForm q={q} />
         <nav>
           <ul>
             {images.map((image) => (
               <li key={image.id}>
-                <Link to={`/images/${image.id}`} key={image.id}>
+                <NavLink to={`/images/${image.id}`} key={image.id}>
                   {image.title}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>
         </nav>
-      </div>
+      </Sidebar>
       <div id="detail">{children}</div>
-    </div>
+    </Main>
   );
 }

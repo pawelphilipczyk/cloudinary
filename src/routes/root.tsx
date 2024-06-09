@@ -1,38 +1,60 @@
-import { scale } from "@cloudinary/url-gen/actions/resize";
-import { cld } from "../api";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
 
-import { trim } from "@cloudinary/url-gen/actions/reshape";
-import reactLogo from "../assets/react.svg";
-import viteLogo from "../assets/vite.svg";
-import "./root.css";
+import { PageHeader } from "../components/PageHeader";
+import { theme } from "../theme";
+
+const GlobalStyle = createGlobalStyle`
+  :root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  body {
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      color: #213547;
+      background-color: #ffffff;
+    }
+    a:hover {
+      color: #747bff;
+    }
+    button {
+      background-color: #f9f9f9;
+    }
+  }
+`;
 
 function Root({ children }: React.PropsWithChildren) {
-  const sample = cld
-    .image("samples/cloudinary-icon")
-    .format("auto")
-    .quality("auto")
-    .reshape(trim().colorSimilarity(50).colorOverride("transparent"))
-    .resize(scale().height(120));
-
+  
   return (
-    <>
-      <header>
-        <a href="https://cloudinary.com/documentation/programmable_media_overview" target="_blank">
-          <img
-            src={sample.toURL()}
-            className="logo cloudinary"
-            alt="Cloudinary logo"
-          />
-        </a>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react spin" alt="React logo" />
-        </a>
-      </header>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <PageHeader />
       <main>{children}</main>
-    </>
+    </ThemeProvider>
   );
 }
 
