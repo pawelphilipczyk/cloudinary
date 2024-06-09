@@ -10,6 +10,20 @@ const Main = styled.div`
   gap: 20px;
   background: #202020;
   width: 100%;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+const Sidebar = styled.div`
+  min-width: 25%;
+  height: 100%;
+  padding: 1em;
+
+  @media screen and (max-width: 768px) {
+    width: initial;
+  }
 `;
 
 const NavLink = styled(Link)`
@@ -20,12 +34,6 @@ const NavLink = styled(Link)`
   &:hover {
     color: ${({ theme }) => theme.color.primaryAlt};
   }
-`;
-
-const Sidebar = styled.div`
-  width: 250px;
-  height: 100%;
-  padding: 1em;
 `;
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -59,7 +67,7 @@ export default function Images({ children }: React.PropsWithChildren) {
           </ul>
         </nav>
       </Sidebar>
-      <div id="detail">{children}</div>
+      {children}
     </Main>
   );
 }
